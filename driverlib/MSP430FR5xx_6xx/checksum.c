@@ -2,7 +2,7 @@
  *
  * @file      checksum.c
  *
- * @brief     motor controller - source file for motor controller crc functions
+ * @brief     source file for MSP crc functions
  *
  * @version   1.0
  * @date      11/4/2021
@@ -28,7 +28,9 @@
  *
  * @note Calling this function erases previous results
  */
-void Setupcrc() {
+void Setupcrc()
+{
+    //CRC_BASE is the starting memory mapped address for the CRC module.
     CRC_setSeed(CRC_BASE, 0xFFFF);
     return;
 }
@@ -40,7 +42,8 @@ void Setupcrc() {
  * representation is used since the computers are little endian
  * @note The result is computed immediately without delay
  */
-void Add_crc(uint8_t data) {
+void Add_crc(uint8_t data)
+{
     CRC_set8BitDataReversed(CRC_BASE, data);
     return;
 }
@@ -50,19 +53,24 @@ void Add_crc(uint8_t data) {
  *
  * @note Calling this function doesn't reset the register contents
  */
-uint16_t Get_crc() {
+uint16_t Get_crc()
+{
     return CRC_getResult(CRC_BASE);
 }
 
 /**
- * @brief Compares the result in the crc registers and data in uart buffer
+ * @brief Compares the result in the crc registers and received crc
  *
  * @param packet_crc The crc of the packet
+ * 
+ * @note the crc results are cleared before the call returns
  *
  * @return uint8_t 1 if crc is the same 0 if different
  */
-inline uint8_t Check_crc(uint16_t packet_crc) {
-    if (packet_crc == CRC_getResult(CRC_BASE)) {
+inline uint8_t Check_crc(uint16_t packet_crc)
+{
+    if (packet_crc == CRC_getResult(CRC_BASE))
+    {
         Setupcrc();
         return 1;
     }

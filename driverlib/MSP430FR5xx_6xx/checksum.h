@@ -2,7 +2,7 @@
  *
  * @file      checksum.h
  *
- * @brief     motor controller - header file for motor controller crc functions
+ * @brief     header file for MSP crc functions
  *
  * @version   1.0
  * @date      11/4/2021
