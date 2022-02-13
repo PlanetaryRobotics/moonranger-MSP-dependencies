@@ -14,8 +14,6 @@
 #include "checksum.h"
 
 #include "crc.h"
-#include "parser.h"
-#include "uart.h"
 
 /**
  * @brief Sets the inital values needed for CRC16-CCITT. Should be called once
