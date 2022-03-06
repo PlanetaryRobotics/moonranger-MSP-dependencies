@@ -29,7 +29,11 @@
 // Macro for enabling assert statements for debugging
 //
 //*****************************************************************************
+// NOTE(jon@auxon.io) - NDEBUG's presence could be controlled by the build
+// system (cmake) 
+#if !defined(NDEBUG)
 #define NDEBUG
+#endif
 
 //*****************************************************************************
 //

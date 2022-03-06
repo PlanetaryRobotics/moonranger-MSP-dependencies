@@ -268,7 +268,7 @@ void CS_initClockSignal (uint8_t selectedClockSignal,
 
             HWREG16(CS_BASE + OFS_CSCTL2) &= ~(SELA_7);
             HWREG16(CS_BASE + OFS_CSCTL2) |= (clockSource);
-            HWREG16(CS_BASE + OFS_CSCTL3) = temp & ~(DIVA0 + DIVA1 + DIVA2) | 
+            HWREG16(CS_BASE + OFS_CSCTL3) = (temp & ~(DIVA0 + DIVA1 + DIVA2)) | 
                                                 clockSourceDivider;
             break;
         case CS_SMCLK:
@@ -286,7 +286,7 @@ void CS_initClockSignal (uint8_t selectedClockSignal,
 
             HWREG16(CS_BASE + OFS_CSCTL2) &= ~(SELS_7);
             HWREG16(CS_BASE + OFS_CSCTL2) |= clockSource;
-            HWREG16(CS_BASE + OFS_CSCTL3) = temp & ~(DIVS0 + DIVS1 + DIVS2) |
+            HWREG16(CS_BASE + OFS_CSCTL3) = (temp & ~(DIVS0 + DIVS1 + DIVS2)) |
                                                 clockSourceDivider;
             break;
         case CS_MCLK:
@@ -301,7 +301,7 @@ void CS_initClockSignal (uint8_t selectedClockSignal,
 
             HWREG16(CS_BASE + OFS_CSCTL2) &= ~(SELM_7);
             HWREG16(CS_BASE + OFS_CSCTL2) |= clockSource;
-            HWREG16(CS_BASE + OFS_CSCTL3) = temp & ~(DIVM0 + DIVM1 + DIVM2) |
+            HWREG16(CS_BASE + OFS_CSCTL3) = (temp & ~(DIVM0 + DIVM1 + DIVM2)) |
                                                 clockSourceDivider;
             break;
     }
@@ -905,8 +905,8 @@ void CS_setDCOFreq(uint16_t dcorsel,
     //Keep overshoot transient within specification by setting clk
     //sources to divide by 4
     //Clear the DIVS & DIVM masks (~0x77) and set both fields to 4 divider
-    HWREG16(CS_BASE + OFS_CSCTL3) = HWREG16(CS_BASE + OFS_CSCTL3) &
-        (~(0x77)) | DIVS1 | DIVM1;
+    HWREG16(CS_BASE + OFS_CSCTL3) = (HWREG16(CS_BASE + OFS_CSCTL3) &
+        (~(0x77))) | DIVS1 | DIVM1;
 
     //Set user's frequency selection for DCO
     HWREG16(CS_BASE + OFS_CSCTL1) = (dcorsel + dcofsel);
