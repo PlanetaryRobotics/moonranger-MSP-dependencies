@@ -26,7 +26,7 @@
  *
  * @note Calling this function erases previous results
  */
-void Setupcrc()
+void Setupcrc(void)
 {
     //CRC_BASE is the starting memory mapped address for the CRC module.
     CRC_setSeed(CRC_BASE, 0xFFFF);
@@ -51,7 +51,7 @@ void Add_crc(uint8_t data)
  *
  * @note Calling this function doesn't reset the register contents
  */
-uint16_t Get_crc()
+uint16_t Get_crc(void)
 {
     return CRC_getResult(CRC_BASE);
 }
