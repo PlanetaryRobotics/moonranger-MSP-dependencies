@@ -1,0 +1,3 @@
+[submodule "barectf-platform-pktring"]
+	path = barectf-platform-pktring
+	url = https://github.com/auxoncorp/barectf-platform-pktring.git
